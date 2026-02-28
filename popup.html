@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #ff9900;
+        --primary-hover: #e38800;
+        --text-main: #0f1111;
+        --text-muted: #565959;
+        --bg-main: #ffffff;
+        --bg-subtle: #f8f9fa;
+        --border: #d5d9d9;
+        --radius-sm: 6px;
+        --radius-md: 10px;
+        --radius-lg: 14px;
+        --shadow-sm: 0 2px 5px rgba(15, 17, 17, 0.05);
+        --shadow-md: 0 4px 12px rgba(15, 17, 17, 0.08);
+        --success: #067d62;
+        --error: #cc0c39;
+      }
+
+      body {
+        width: 360px;
+        margin: 0;
+        padding: 0;
+        font-family:
+          "Inter",
+          -apple-system,
+          system-ui,
+          sans-serif;
+        background: var(--bg-main);
+        color: var(--text-main);
+        overflow-x: hidden;
+      }
+
+      .header {
+      background-color: #131921;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header img {
+      width: 85px;
+      height: auto;
+      object-fit: contain;
+      cursor: pointer;
+    }
+
+    .location-mock {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #FFFFFF;
+      cursor: pointer;
+    }
+
+    .location-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .location-text .line-1 {
+      font-size: 11px;
+      color: #CCCCCC;
+      line-height: 12px;
+    }
+
+    .location-text .line-2 {
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 14px;
+    }
+
+    .nav-sub {
+      background-color: #232f3e;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      color: white;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .nav-sub a {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .nav-sub a:hover {
+      outline: 1px solid white;
+      padding: 2px 4px;
+      margin: -2px -4px;
+    }
+
+      .container {
+        padding: 20px;
+      }
+
+      /* Buttons */
+      button {
+        width: 100%;
+        padding: 12px 24px;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 100px;
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        outline: none;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: #111;
+        border: 1px solid transparent;
+        box-shadow: 0 2px 5px rgba(255, 153, 0, 0.3);
+      }
+
+      .btn-primary:hover {
+        background: var(--primary-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(255, 153, 0, 0.4);
+      }
+
+      .btn-primary:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 3px rgba(255, 153, 0, 0.3);
+      }
+
+      .btn-primary svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      /* Output Section */
+      #result-container {
+        display: none;
+        margin-top: 20px;
+        animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      .output-wrapper {
+        position: relative;
+        background: #1e1e1e;
+        border-radius: var(--radius-md);
+        padding: 16px;
+        box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2);
+        margin-bottom: 12px;
+      }
+
+      #output {
+        margin: 0;
+        font-family: "Consolas", "Courier New", Courier, monospace;
+        font-size: 12px;
+        line-height: 1.5;
+        color: #d4d4d4;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+
+      /* Custom Scrollbar for Pre */
+      #output::-webkit-scrollbar {
+        width: 6px;
+      }
+      #output::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      #output::-webkit-scrollbar-thumb {
+        background: #555;
+        border-radius: 4px;
+      }
+      #output::-webkit-scrollbar-thumb:hover {
+        background: #777;
+      }
+
+      /* Dark theme JSON syntax highlighting */
+      .json-key {
+        color: #9cdcfe;
+      }
+      .json-string {
+        color: #ce9178;
+      }
+      .json-number {
+        color: #b5cea8;
+      }
+      .json-boolean {
+        color: #569cd6;
+      }
+      .json-null {
+        color: #569cd6;
+      }
+
+      /* Action buttons below output */
+      .action-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      #copyBtn {
+        border: 3.5px solid #ffd814;
+        background: #fcfcfc;
+      }
+
+      .btn-secondary {
+        background: var(--bg-main);
+        color: var(--text-main);
+        border: 1px solid var(--border);
+        box-shadow: 0 1px 2px rgba(15, 17, 17, 0.05);
+        font-size: 13px;
+        padding: 10px 12px;
+      }
+
+      .btn-secondary:hover {
+        background: var(--bg-subtle);
+        border-color: #BABBBA;
+      }
+
+      #copyBtn:hover {
+        background: #fffdf2;
+        border-color: #f5cf11;
+      }
+
+      .btn-secondary svg {
+        width: 16px;
+        height: 16px;
+        color: var(--text-muted);
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes pulse {
+        from {
+          opacity: 0.6;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1.1);
+        }
+      }
+      .footer {
+      padding: 12px 20px 20px;
+      font-size: 10px;
+      color: #767676;
+      text-align: center;
+      line-height: 1.4;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+    <div class="header-right">
+      <img src="src/img/logo.png" alt="Amazon Logo">
+    </div>
+  </div>
+  <div class="nav-sub">
+    <a href="https://buymeacoffee.com/galore" target="_blank">
+      Support Us
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="#FF9900" stroke="#FF9900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+    </a>
+  </div>
+
+    <div class="container">    
+    <button id="exportBtn" class="btn-primary">
+      Extract Cart Data
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+    </button>
+
+      <div id="result-container">
+        <div class="output-wrapper">
+          <pre id="output"></pre>
+        </div>
+        <div class="action-row">
+          <button id="copyBtn" class="btn-secondary">
+            <svg
+              id="copyIcon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+              <path
+                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+              />
+            </svg>
+            <span id="copyText">Copy JSON</span>
+          </button>
+          <button id="downloadBtn" class="btn-secondary">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            Download
+          </button>
+        </div>
+      </div>
+    </div>
+
+  <div class="footer">
+    This extension is not affiliated with, endorsed by, or sponsored by Amazon.com, Inc. or its affiliates.
+  </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
