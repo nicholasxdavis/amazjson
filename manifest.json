@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Amazon Cart Exporter",
+  "name": "Amazjson",
   "version": "1.0",
   "description": "Quickly extract Amazon cart items into JSON.",
   "permissions": ["activeTab", "scripting"],
