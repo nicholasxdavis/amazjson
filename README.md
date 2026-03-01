@@ -1,6 +1,6 @@
-# Amazjson
-
-Chrome extension that extracts Amazon shopping cart items into JSON format.
+<p align="center">
+  <img src="https://github.com/nicholasxdavis/amazjson/blob/main/src/img/banner.png?raw=true" alt="Amazjson Banner" width="100%">
+</p>
 
 ## Installation
 
